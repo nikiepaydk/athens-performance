@@ -1,0 +1,47 @@
+services:
+  athens:
+    image: gomods/athens:latest
+    container_name: athens
+    ports:
+      - "3000:3000"
+    volumes:
+      - athens-storage:/var/lib/athens
+    environment:
+      ATHENS_STORAGE_TYPE: disk
+      ATHENS_DISK_STORAGE_ROOT: /var/lib/athens
+      ATHENS_PORT: :3000
+      ATHENS_GOGET_WORKERS: "20"
+      ATHENS_GLOBAL_ENDPOINT: https://proxy.golang.org
+      ATHENS_DOWNLOAD_MODE: sync
+      ATHENS_INDEX_TYPE: memory
+      ATHENS_GO_BINARY_ENV_VARS: 'GOPROXY=proxy.golang.org,direct'
+      ATHENS_GONOSUM_PATTERNS: github.com/epay-technology/*,gitlab.epay.technology/*
+      GOPRIVATE: github.com/epay-technology,gitlab.epay.technology/*
+    init: true
+    profiles:
+      - athens
+
+  app-athens:
+    build:
+      context: ./
+    container_name: go-app-athens
+    depends_on:
+      - athens
+    environment:
+      GOPROXY: http://athens:3000,https://proxy.golang.org,direct
+    command: ["sh", "-c", "time go get -u"]
+    profiles:
+      - athens
+
+  app-default:
+    build:
+      context: ./
+    container_name: go-app-default
+    environment:
+      GOPROXY: https://proxy.golang.org,direct
+    command: ["sh", "-c", "time go get -u"]
+    profiles:
+      - default
+
+volumes:
+  athens-storage:
