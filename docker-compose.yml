@@ -15,8 +15,6 @@ services:
       ATHENS_DOWNLOAD_MODE: sync
       ATHENS_INDEX_TYPE: memory
       ATHENS_GO_BINARY_ENV_VARS: 'GOPROXY=proxy.golang.org,direct'
-      ATHENS_GONOSUM_PATTERNS: github.com/epay-technology/*,gitlab.epay.technology/*
-      GOPRIVATE: github.com/epay-technology,gitlab.epay.technology/*
     init: true
     profiles:
       - athens
