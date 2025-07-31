@@ -19,3 +19,5 @@ go-app-athens  | real   4m 33.56s
 go-app-athens  | user   0m 0.79s
 go-app-athens  | sys    0m 0.50s
 ```
+
+### Performance degradation: x113 📉
