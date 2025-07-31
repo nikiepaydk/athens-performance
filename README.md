@@ -1,5 +1,7 @@
 # athens-performance
 
+These tests were run a Ubuntu with a Ryzen 9 3950X3D with 64 GB memory.
+
 ## How to Run
 
 ### Run test directly with default proxy: proxy.golang.org
